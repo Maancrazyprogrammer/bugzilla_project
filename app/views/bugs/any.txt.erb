@@ -1,0 +1,51 @@
+<%= form_with model: @bug do |form| %>
+  <%= form.label :"Bug Title" %>
+  <%= form.text_field :b_Title %>
+
+<div>
+  <%= form.label :b_type %>
+  <%= form.select :b_type, Bug.b_types.keys %>
+</div>
+<div>
+  <%= form.label :status %>
+  <%= form.select :status, Bug.statuses.keys %>
+</div>
+
+  <%= form.label :"Deadline" %>
+  <%= form.date_field :b_deadline %>
+
+ <%= form.hidden_field :project_id, value: @project  %>
+   
+<% if current_user.manager? %>
+
+    <%= form.label :user_id %>
+    <%=  form.select :user_id, User.where(role: ['developer', 'QA']).pluck(:name, :id), {prompt:'Assign To User'} %>
+<% else %> 
+    <%= form.label :user_id %>
+    <%=  form.select :user_id, User.where(user_id: current_user.id).pluck(:name, :id), {prompt:'Assign TO You'} %>
+<% end %>
+
+ 
+  <%= form.submit 'Assign Bug',class: 'btn btn-primary'  %>
+<% end %>
+<%= link_to 'back' , bugs_path %>
+
+
+<%= puts "nouman",@project %>
+
+
+<div id="bug-results">
+        <% @bugs.each do |bug| %>
+  <tr>
+    
+    <td><%= bug.b_Title %></td>
+    <td><%= bug.b_type %></td>
+    <td><%= bug.status %></td>
+    <td><%= bug.b_deadline %></td>
+    <td><%= bug.project.p_Name %></td>
+    <td><%= bug.project.id %></td>
+
+
+    <td><%= link_to 'Edit', edit_bug_path(bug,project_id: bug.project.id) %></td>
+  </tr>
+<% end %>

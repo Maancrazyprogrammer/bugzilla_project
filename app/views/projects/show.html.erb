@@ -1,0 +1,48 @@
+<h2>Detail<h2>
+
+<h3><%= @project.p_Name %></h3>
+<p><%= @project.p_desc %></p>
+
+<h1>Assiged Users<h1>
+ <% @users.each do |user|%>
+<h4><%= user.name %></h4>
+ <%# <%= link_to 'Remove', remove_user_project_path(@project, user), method: :delete, data: { confirm: 'Are you sure?' } %>
+ <%end%>   
+ <h1>Assiged Bugs<h1>
+ <% @bugs.each do |bug|%>
+<h4><%= bug.b_Title %></h4>
+ <%end%>   
+ 
+
+
+
+<%# <%= link_to 'Assign New User', new_join_path(project_id: @project.id), class: 'btn btn-primary' %> 
+ 
+
+
+
+<br>
+
+
+<%= form_with(model: Bug.new, url: project_bugs_path(@project), local: true) do |form| %>
+  <%= form.label :"Bug Title" %>
+  <%= form.text_field :b_Title %>
+
+<div>
+  <%= form.label :b_type %>
+  <%= form.select :b_type, Bug.b_types.keys %>
+</div>
+<div>
+  <%= form.label :status %>
+  <%= form.select :status, Bug.statuses.keys %>
+</div>
+
+  <%= form.label :"Deadline" %>
+  <%= form.date_field :b_deadline %>
+
+   <%= form.hidden_field :project_id, value: @project.id %>  
+ 
+ 
+  <%= form.submit 'Assign Bug',class: 'btn btn-primary'  %>
+<% end %>
+<%= link_to 'back' , projects_path %>

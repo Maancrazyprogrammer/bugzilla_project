@@ -1,0 +1,19 @@
+
+
+<%= form_with(model: @project, local: true) do |form| %>
+  <%= form.label :p_Name %>
+  <%= form.text_field :p_Name %>
+
+  <%= form.label :p_desc %>
+  <%= form.text_field :p_desc %>
+
+  <%= form.hidden_field :id, value: @project_id_for_form %>
+
+  <%= form.fields_for :joins do |user_project_fields| %>
+    <%= user_project_fields.hidden_field :project_id, value: @project_id_for_form %>
+    <%= user_project_fields.label :user_id %>
+    <%= user_project_fields.select :user_id, User.where(role: ['developer', 'QA']).pluck(:name, :id), {prompt:'Select User'} %>
+  <% end %>
+
+  <%= form.submit %>
+<% end %>

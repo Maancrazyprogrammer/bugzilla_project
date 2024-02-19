@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  b_Title: MyString
+  b_status: MyString
+  b_type: MyString
+  b_deadline: 2024-02-14
+  project: one
+  user: one
+
+two:
+  b_Title: MyString
+  b_status: MyString
+  b_type: MyString
+  b_deadline: 2024-02-14
+  project: two
+  user: two

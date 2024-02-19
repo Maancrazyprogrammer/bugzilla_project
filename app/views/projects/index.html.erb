@@ -1,0 +1,106 @@
+
+
+
+
+<% if current_user.manager? %>
+<h1>Project Detail</h1>
+<table border="1" >
+    <tr>
+        <th>Project Name</th>
+        <th>Description</th>
+        <th>Users</th>
+        <th>Action</th>
+  
+    
+
+    </tr>
+      <tr>
+      
+         <% @projects.each do |project| %>
+        <td>
+
+          
+        <%= link_to project.p_Name, project_path(project) %>
+
+
+       
+     
+
+        </td>
+        <td>
+
+        <%= project.p_desc %>
+     
+    
+        </td>
+ <td>
+        <% if can? :edit, Project %>
+         <%= link_to "Edit", edit_project_path(project) , class:"btn btn-primary"%>
+
+
+        </td>
+        <td>
+        <% end %>
+
+      <% if can? :destroy, Project %>
+
+
+<%= link_to "Delete", project, data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  }, class:"btn btn-primary" %>
+
+ 
+<% end %>
+
+<%# <%= link_to 'Assign To User', project_path(project), class: 'btn btn-primary' %> 
+<%# <%= link_to 'Assign Bug', new_bug_path(project_id: project.id), class: 'btn btn-primary' %> 
+
+<% if can? :new, Bug %>
+
+<%= link_to 'Assign Bug', project_path(project), class: 'btn btn-primary' %>
+ 
+<% end %>
+
+         
+        </td>
+
+       </tr>
+    
+     <% end %>
+</table>
+ 
+ 
+<% else %>
+  <h1>Your Assigned Projects</h1>
+  <ul>
+    <% @projects_assigned_to_user.each do |project| %>
+      <li><%= project.p_Name %></li>
+      
+        
+
+    <% end %>
+<h1>Bugs Assigned to Your Projects</h1>
+  <ul>
+    <% @bugs_assigned_to_user.each do |bug| %>
+      
+       <li><%= bug.b_Title %> (Assigned to: <%= bug.project.p_Name %>)</li>
+    <% end %>
+  </ul>
+<% end %>
+
+ 
+ 
+       
+
+
+<% if can? :new, Project %>
+<%= link_to "New Project", new_project_path, class:"btn btn-primary" %>
+ 
+<% end %>
+
+
+
+<%= link_to "Bug Detail", bugs_path, class:"btn btn-primary" %>
+          
+

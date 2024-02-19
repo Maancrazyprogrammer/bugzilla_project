@@ -1,0 +1,35 @@
+<!-- app/views/bugs/edit.html.erb -->
+<%= form_with(model: @bug, local: true) do |form| %>
+  <%= form.label :b_Title %>
+  <%= form.text_field :b_Title %>
+<div>
+  <%= form.label :b_type %>
+  <%= form.select :b_type, Bug.b_types.keys %>
+</div>
+<div>
+  <%= form.label :status %>
+  <%= form.select :status, Bug.statuses.keys %>
+</div>
+
+  <%= form.label :b_deadline %>
+  <%= form.date_field :b_deadline %>
+
+  <%= form.hidden_field :project_id, value: @project %>
+
+   
+<% if current_user.manager? %>
+
+    <%= form.label :user_id %>
+    <%=  form.select :user_id, User.where(role: ['developer', 'QA']).pluck(:name, :id), {prompt:'Assign To User'} %>
+<% else %> 
+    <%= form.label :user_id %>
+    <%=  form.select :user_id, User.where(user_id: current_user.id).pluck(:name, :id), {prompt:'Assign TO You'} %>
+<% end %>
+
+
+
+
+  <%= form.submit %>
+<% end %>
+
+
