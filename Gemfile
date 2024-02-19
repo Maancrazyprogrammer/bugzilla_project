@@ -50,7 +50,6 @@ group :development, :test do
   gem 'cancancan'
   gem 'jquery-rails'
   gem 'turbolinks'
-  gem 'turbo-rails'
 
 end
 

@@ -1,0 +1,15 @@
+
+
+<h1>Search result</h1>
+
+<ul>
+<% @bugss.each do |bug| %>
+<li><%= bug.b_Title %></li>
+
+
+
+<% end %>
+
+</ul>
+
+<%= link_to 'Back' , bugs_path , class:'btn btn-primary btn-lg' %>

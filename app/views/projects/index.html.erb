@@ -1,7 +1,4 @@
 
-
-
-
 <% if current_user.manager? %>
 <h1>Project Detail</h1>
 <table border="1" >
@@ -33,6 +30,7 @@
      
     
         </td>
+        
  <td>
         <% if can? :edit, Project %>
          <%= link_to "Edit", edit_project_path(project) , class:"btn btn-primary"%>
@@ -69,24 +67,66 @@
     
      <% end %>
 </table>
- 
+ <% if can? :read, Bug %>
+
+<%= link_to "Bug Detail", bugs_path, class:"btn btn-primary" %>
+          
+
+<% end %>
  
 <% else %>
-  <h1>Your Assigned Projects</h1>
-  <ul>
-    <% @projects_assigned_to_user.each do |project| %>
-      <li><%= project.p_Name %></li>
+ <h1>Your Assigned Projects</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Project Name</th>
+      <th scope="col">Description</th>
+    
+    </tr>
+  </thead>
+  <tbody>
+      <% @projects_assigned_to_user.each do |project| %>
+    <tr>
+      
+        <td><%= project.id %></td>
+         <td><%= project.p_Name %></td> 
+         <td><%= project.p_desc %></td>
+    </tr>
+  
+    <% end %>
+  </tbody>
+</table>
+ 
+
+  
+    
       
         
 
-    <% end %>
 <h1>Bugs Assigned to Your Projects</h1>
-  <ul>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Bugs</th>
+      <th scope="col">Assigned To Projects</th>
+    
+    </tr>
+  </thead>
+  <tbody>
     <% @bugs_assigned_to_user.each do |bug| %>
+    <tr>
+       <td><%= bug.id %> </td>
       
-       <li><%= bug.b_Title %> (Assigned to: <%= bug.project.p_Name %>)</li>
+       <td><%= bug.b_Title %> </td>
+        <td><%= bug.project.p_Name %></td>
+    </tr>
+  
     <% end %>
-  </ul>
+  </tbody>
+</table>
+ 
 <% end %>
 
  
@@ -99,8 +139,4 @@
  
 <% end %>
 
-
-
-<%= link_to "Bug Detail", bugs_path, class:"btn btn-primary" %>
-          
 

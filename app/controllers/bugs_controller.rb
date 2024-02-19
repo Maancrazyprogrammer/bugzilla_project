@@ -3,6 +3,8 @@ class BugsController < ApplicationController
   before_action :set_project, only: [:new, :create]
 
   def index
+    authorize! :index, Bug
+
     @bugs = Bug.all
 
   end
@@ -50,6 +52,7 @@ class BugsController < ApplicationController
     end
   end
   def show
+    authorize! :show, Bug
   end
 
   def destroy

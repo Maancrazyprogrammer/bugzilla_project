@@ -1,7 +1,30 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Type</th>
+      <th scope="col">Status</th>
+      <th scope="col">deadline</th>
+      <th scope="col">Projects</th>
 
-<% @bugs.each do |bug| %>
-  <td><%= bug.b_Title %></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bugs.each do |bug| %>
+    <tr>
+      <td><%= bug.id %></td>
+       <td><%= bug.b_Title %></td>
     <td><%= bug.b_type %></td>
     <td><%= bug.status %></td>
     <td><%= bug.b_deadline %></td>
+    <td><%= bug.project.p_Name %></td>
+
+    </tr>
+  
+   
 <% end %>
+  </tbody>
+</table>
+
+
