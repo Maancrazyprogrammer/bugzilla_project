@@ -26,7 +26,7 @@ class Ability
 
     elsif user.developer?
       can :read, Project, developer_id: user.id
-      can :read, Bug,developer_id: user.id
+      cannot :read, Bug,developer_id: user.id
       cannot :read, Join, developer_id: user.id
       cannot :new, Project, developer_id: user.id
       cannot :create, Project, developer_id: user.id
@@ -38,7 +38,7 @@ class Ability
       cannot :create, Join, developer_id: user.id
       cannot :new, Bug, developer_id: user.id
       cannot :create, Bug, developer_id: user.id
-      cannot :read, Bug, developer_id: user.id
+      # cannot :read, Bug, developer_id: user.id
 
 
 
