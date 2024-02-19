@@ -82,6 +82,8 @@
       <th scope="col">#</th>
       <th scope="col">Project Name</th>
       <th scope="col">Description</th>
+     
+
     
     </tr>
   </thead>
@@ -111,6 +113,13 @@
       <th scope="col">#</th>
       <th scope="col">Bugs</th>
       <th scope="col">Assigned To Projects</th>
+      <th scope="col">Type</th>
+      <th scope="col">Status</th>
+      <th scope="col">Deadline</th>
+      <th scope="col">Action</th>
+
+
+
     
     </tr>
   </thead>
@@ -121,6 +130,12 @@
       
        <td><%= bug.b_Title %> </td>
         <td><%= bug.project.p_Name %></td>
+          <td><%= bug.b_type %> </td>
+          <td><%= bug.status %> </td>
+          <td><%= bug.b_deadline %> </td>
+
+
+         <td><%= link_to "Assign", edit_bug_path(bug),class:"btn btn-primary" %></td>
     </tr>
   
     <% end %>
