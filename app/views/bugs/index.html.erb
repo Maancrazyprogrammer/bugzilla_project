@@ -7,6 +7,8 @@
       <th scope="col">Status</th>
       <th scope="col">deadline</th>
       <th scope="col">Projects</th>
+      <th scope="col">Action</th>
+
 
     </tr>
   </thead>
@@ -19,7 +21,11 @@
     <td><%= bug.status %></td>
     <td><%= bug.b_deadline %></td>
     <td><%= bug.project.p_Name %></td>
+<% if can? :edit, Bug %>
+    <td><%= link_to "Edit", edit_bug_path(bug), class:"btn btn-primary" %></td>
 
+ 
+<% end %>
     </tr>
   
    

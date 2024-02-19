@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   # before_action :authorize_post, only: [:new,:create,:show, :edit, :update, :destroy]
   def index
     # authorize! :read, Project
-    if current_user.manager?
+    if current_user.manager? || current_user.QA?
       @projects=Project.all
     else
       @projects_assigned_to_user = current_user.projects

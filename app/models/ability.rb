@@ -21,6 +21,7 @@ class Ability
       can :create, Join, manager_id: user.id
       cannot:new, Bug, manager_id: user.id
       cannot :create, Bug, manager_id: user.id
+      cannot :edit, Bug, manager_id: user.id
 
 
 

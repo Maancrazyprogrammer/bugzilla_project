@@ -38,6 +38,8 @@ class BugsController < ApplicationController
   end
 
   def edit
+    authorize! :edit, Bug
+
     @bug = Bug.find(params[:id])
     @project = Bug.find(params[:project_id])
   end
