@@ -23,7 +23,7 @@
     <%=  form.select :user_id, User.where(role: ['developer', 'QA']).pluck(:name, :id), {prompt:'Assign To User'} %>
 <% else %> 
     <%= form.label :user_id %>
-    <%=  form.select :user_id, User.where(user_id: current_user.id).pluck(:name, :id), {prompt:'Assign TO You'} %>
+    <%=  form.select :user_id, User.where(name: current_user.name).pluck(:name, :id), {prompt:'Assign TO You'} %>
 <% end %>
 
 
