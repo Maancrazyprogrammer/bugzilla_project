@@ -1,6 +1,6 @@
 
 
-<%= form_with(model: @project, local: true) do |form| %>
+<%= form_with(model: @project, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |form| %>
   <%= form.label :p_Name %>
   <%= form.text_field :p_Name %>
 
@@ -9,11 +9,23 @@
 
   <%= form.hidden_field :id, value: @project_id_for_form %>
 
-  <%= form.fields_for :joins do |user_project_fields| %>
-    <%= user_project_fields.hidden_field :project_id, value: @project_id_for_form %>
-    <%= user_project_fields.label :user_id %>
-    <%= user_project_fields.select :user_id, User.where(role: ['developer', 'QA']).pluck(:name, :id), {prompt:'Select User'} %>
+  <%# here implement nested form %>
+
+   <template data-nested-form-target="template">
+    <%= form.fields_for :joins, Join.new, child_index: 'NEW_RECORD' do |todo_fields| %>
+      <%= render "projects/project_user_form", f: todo_fields %>
+    <% end %>
+    
+  </template>
+      <%= form.fields_for :joins do |todo_fields| %>
+      <%= render "projects/project_user_form", f: todo_fields %>
+   
+      <% end %>
+  <!-- Inserted elements will be injected before that target. -->
+    <div data-nested-form-target="target"></div>
+
+    <button type="button" data-action="nested-form#add">Add todo</button>
+  <%# end of nested form %>
+    <%= form.submit %>
   <% end %>
 
-  <%= form.submit %>
-<% end %>

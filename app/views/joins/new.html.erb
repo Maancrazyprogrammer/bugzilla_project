@@ -1,16 +1,16 @@
-<!-- app/views/assignments/new.html.erb -->
+<%# <!-- app/views/assignments/new.html.erb -->
 <h1>Assign Project</h1>
 
 <%= form_with(model: @join,  local: true) do |form| %>
 
  
- <% if current_user.role == "manager" %>
-    <%= form.select :user_id, User.where(role:"developer").pluck(:name,:id), {prompt: 'select'} %>
-    <%end%>
+ <%# <% if current_user.role == "manager" %>
+    <%# <%= form.select :user_id, User.where(role:"developer").pluck(:name,:id), {prompt: 'select'} %> 
+    <%# <%end%> 
 
-  <%= form.hidden_field :project_id, value: @join.project_id  %>
+  <%# <%= form.hidden_field :project_id, value: @join.project_id  %> 
 
-  <%= form.submit 'Assign', class: 'btn btn-primary' %>
-<% end %>
+  <%# <%= form.submit 'Assign', class: 'btn btn-primary' %> 
+<%# <% end %> 
 
-
+ 

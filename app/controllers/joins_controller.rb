@@ -16,6 +16,7 @@ class JoinsController < ApplicationController
     @join = Join.new(join_params)
 
     if @join.save
+      SendProjectAssignmentEmailJob.perform_later(@join.user, @join.project)
       redirect_to project_path(@join.project), notice: 'Project assigned successfully.'
     else
       render :new

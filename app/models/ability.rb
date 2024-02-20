@@ -8,20 +8,20 @@ class Ability
 
 
     if user.manager?
-      can :read, Project, manager_id: user.id
-      can :read, Bug,manager_id: user.id
-      can :read, Join, manager_id: user.id
-      can :new, Project, manager_id: user.id
-      can :create, Project, manager_id: user.id
-      can :destroy, Project, manager_id: user.id
-      can :update, Project, manager_id: user.id
-      can :edit, Project, manager_id: user.id
+      can :manage, Project, manager_id: user.id
+      can :manage, Bug,manager_id: user.id
+      can :manage, Join, manager_id: user.id
+      # can :new, Project, manager_id: user.id
+      # can :create, Project, manager_id: user.id
+      # can :destroy, Project, manager_id: user.id
+      # can :update, Project, manager_id: user.id
+      # can :edit, Project, manager_id: user.id
 
-      can :new, Join, manager_id: user.id
-      can :create, Join, manager_id: user.id
-      cannot:new, Bug, manager_id: user.id
-      cannot :create, Bug, manager_id: user.id
-      cannot :edit, Bug, manager_id: user.id
+      # can :new, Join, manager_id: user.id
+      # can :create, Join, manager_id: user.id
+      # cannot:new, Bug, manager_id: user.id
+      # cannot :create, Bug, manager_id: user.id
+      # cannot :edit, Bug, manager_id: user.id
 
 
 

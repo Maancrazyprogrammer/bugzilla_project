@@ -1,29 +1,104 @@
-<h2>Detail<h2>
 
-<h3><%= @project.p_Name %></h3>
-<p><%= @project.p_desc %></p>
+<h1>Project Detail</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      
+
+
+    
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+
+<td><%= @project.p_Name %></td>
+<td><%= @project.p_desc %></>
+    </tr>
+  
+    
+  </tbody>
+</table>
+
 
 <h1>Assiged Users<h1>
- <% @users.each do |user|%>
-<h4><%= user.name %><%= link_to 'Remove', remove_user_project_path(@project, user), method: :delete, data: { confirm: 'Are you sure?' } %></h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Role</th>
+
+
+
+    
+    </tr>
+  </thead>
+  <tbody>
+   <% @users.each do |user|%>
+    <tr>
+     <td><%= user.id %></td>
+     <td><%= user.name %></td>
+     <td><%= user.email %></td>
+     <td><%= user.role %></td>
+
+     <%# <><%= link_to 'Remove', remove_user_project_path(@project, user), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </tr>
+  
+    <% end %>
+  </tbody>
+</table>
+
+<%# <%= link_to 'Remove', remove_user_project_path(@project, user), method: :delete, data: { confirm: 'Are you sure?' } %>
  
- <%end%>   
  <h1>Assiged Bugs<h1>
+<table class="table f-2">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Bugs</th>
+      <th scope="col">Type</th>
+      <th scope="col">Status</th>
+      <th scope="col">Deadline</th>
+  
+
+
+
+    
+    </tr>
+  </thead>
+  <tbody>
  <% @bugs.each do |bug|%>
-<h4><%= bug.b_Title %></h4>
- <%end%>   
- 
+    <tr>
+       <td><%= bug.id %> </td>
+       <td><%= bug.b_Title %> </td>
+          <td><%= bug.b_type %> </td>
+          <td><%= bug.status %> </td>
+          <td><%= bug.b_deadline %> </td>
+
+
+      
+    </tr>
+  
+    <% end %>
+  </tbody>
+</table>
 
 
 
-<%# <%= link_to 'Assign New User', new_join_path(project_id: @project.id), class: 'btn btn-primary' %> 
- 
+
+
+
 
 
 
 <br>
 
-
+<h1>Assign New Bug</h1>
 <%= form_with(model: Bug.new, url: project_bugs_path(@project), local: true) do |form| %>
   <%= form.label :"Bug Title" %>
   <%= form.text_field :b_Title %>
@@ -45,4 +120,4 @@
  
   <%= form.submit 'Assign Bug',class: 'btn btn-primary'  %>
 <% end %>
-<%= link_to 'back' , projects_path %>
+<%= link_to 'back' , projects_path,class: 'btn btn-primary' %>

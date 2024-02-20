@@ -17,10 +17,11 @@ class ProjectsController < ApplicationController
 
   def new
     authorize! :new, Project
-
-    # @project.joins.build
     @project = Project.new
+    # @project.joins.build
     @project.joins.build(user_id: params[:user_id])
+    @users = User.all
+
     @project_id_for_form = SecureRandom.uuid # Generate a temporary project_id
 
   end
@@ -33,6 +34,7 @@ class ProjectsController < ApplicationController
     if @project.save
       # SendProjectAssignmentEmailJob.perform_later(user, project)
       SendProjectAssignmentEmailJob.perform_later(@project.joins.first.user, @project)
+      SendProjectAssignmentEmailJob.perform_later(@project.joins.second.user, @project)
       redirect_to project_path(@project), notice: 'project created successfully!'
     else
       render :new
@@ -99,7 +101,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:p_Name, :p_desc, joins_attributes: [:user_id, :project_id])
+    params.require(:project).permit(:p_Name, :p_desc, joins_attributes: [:id,:project_id, :user_id, :_destroy])
   end
 
 end
