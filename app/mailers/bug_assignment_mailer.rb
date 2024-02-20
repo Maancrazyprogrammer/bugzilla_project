@@ -3,7 +3,7 @@ class BugAssignmentMailer < ApplicationMailer
   def bug_assigned_email(user, bug)
     @user = user
     @bug = bug
-    mail(to: @user.email, subject: 'New Project Assignment')
+    mail(to: @user.email, subject: 'New Bug Assignment')
   end
 
 end
