@@ -3,7 +3,7 @@ class Bug < ApplicationRecord
   belongs_to :user, optional: true
 
 
-  validates :b_Title, presence: true
+  validates :b_Title, presence: :true, uniqueness: true
   validates :status, presence: true
   validates :b_type, presence: true
 

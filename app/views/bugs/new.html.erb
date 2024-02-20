@@ -21,4 +21,14 @@
  
  
   <%= form.submit 'Assign Bug',class: 'btn btn-primary'  %>
+  <% if @bug.errors.any? %>
+    <div>
+      <h2><%= pluralize(@bug.errors.count, "error") %> prohibited this bug from being saved: try another bug</h2>
+      <ul>
+        <% @bug.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 <% end %>

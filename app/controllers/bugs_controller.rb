@@ -38,11 +38,11 @@ class BugsController < ApplicationController
 
     def update
       @bug = Bug.find(params[:id])
-      authorize! :update, Bug
+
 
 
       if @bug.update(bug_params)
-        redirect_to bugs_path, notice: "Request sucessfull Completed!"
+        redirect_to projects_path, notice: "Request sucessfull Completed!"
       else
         render :edit, status: :unprocessable_entity
       end

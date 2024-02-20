@@ -39,7 +39,9 @@ class Ability
       cannot :create, Join, developer_id: user.id
       cannot :new, Bug, developer_id: user.id
       cannot :create, Bug, developer_id: user.id
-      # cannot :read, Bug, developer_id: user.id
+      can :edit, Bug, developer_id: user.id
+
+
 
 
 
