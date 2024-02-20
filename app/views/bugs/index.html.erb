@@ -1,4 +1,21 @@
-<%= link_to 'back' , projects_path,class: 'btn btn-primary' %>
+<%= search_form_for @q do |f| %>
+  
+  <%= f.label :b_Title_cont, "Bug Title" %>
+  <%= f.text_field :b_Title_cont %>
+  <%= f.label :status_cont, "Status" %>
+
+  <%= f.select :status_eq, Bug.statuses.to_a.map { |w| [w[0].humanize, w[1]] },
+                         {:include_blank => true} %>
+  <%= f.label :b_type_cont, "Type" %>
+
+ <%= f.select :b_type_eq, Bug.b_types.to_a.map { |w| [w[0].humanize, w[1]] },
+                         {:include_blank => true} %>
+
+
+    <%= f.submit "Search", class: 'btn btn-warning'%>
+  
+<% end %>
+
 
 <table class="table">
   <thead>
@@ -41,3 +58,5 @@
 </table>
 
 
+
+<%= link_to 'back' , projects_path,class: 'btn btn-primary' %>

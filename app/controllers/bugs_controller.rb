@@ -7,6 +7,8 @@ class BugsController < ApplicationController
     authorize! :index, Bug
 
     @bugs = Bug.all
+    @q = Bug.ransack(params[:q])
+    @bugs = @q.result
 
   end
 
