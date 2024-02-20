@@ -1,0 +1,24 @@
+
+<h1>Assign New Bug</h1>
+<%= form_with(model: @bug, url: project_bugs_path(@project), method: :post) do |form| %>
+  <%= form.label :"Bug Title" %>
+  <%= form.text_field :b_Title %>
+
+<div>
+  <%= form.label :b_type %>
+  <%= form.select :b_type, Bug.b_types.keys %>
+</div>
+<div>
+  <%= form.label :status %>
+  <%= form.select :status, Bug.statuses.keys %>
+</div>
+
+  <%= form.label :"Deadline" %>
+  <%= form.date_field :b_deadline %>
+
+   <%= form.hidden_field :project_id, value: @project_id %>  
+   <%= form.collection_select :user_id, User.where(role: ["developer","QA"]), :id, :name, {}, { multiple: false } %>
+ 
+ 
+  <%= form.submit 'Assign Bug',class: 'btn btn-primary'  %>
+<% end %>

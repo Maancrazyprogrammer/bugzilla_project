@@ -1,5 +1,7 @@
+<%= link_to 'back' , projects_path,class: 'btn btn-primary' %>
+
 <!-- app/views/bugs/edit.html.erb -->
-<%= form_with(model: @bug, local: true) do |form| %>
+<%= form_with(model: @bug, url: bug_path(@bug, project_id: @project.id), method: :patch) do |form| %>
   <%= form.label :b_Title %>
   <%= form.text_field :b_Title %>
 <div>
@@ -14,7 +16,7 @@
   <%= form.label :b_deadline %>
   <%= form.date_field :b_deadline %>
 
-  <%= form.hidden_field :project_id, value: @project %>
+  <%= form.hidden_field :project_id, value: @project.id %>
 
    
 <% if current_user.manager? %>

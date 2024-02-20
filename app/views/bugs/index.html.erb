@@ -1,3 +1,5 @@
+<%= link_to 'back' , projects_path,class: 'btn btn-primary' %>
+
 <table class="table">
   <thead>
     <tr>
@@ -21,11 +23,16 @@
     <td><%= bug.status %></td>
     <td><%= bug.b_deadline %></td>
     <td><%= bug.project.p_Name %></td>
+    <td>
 <% if can? :edit, Bug %>
-    <td><%= link_to "Edit", edit_bug_path(bug), class:"btn btn-primary" %></td>
+ 
+
+<%= link_to 'Edit Bug', edit_bug_path(bug,project_id: bug.project.id), class: 'btn btn-warning' %>
+
 
  
 <% end %>
+</td>
     </tr>
   
    

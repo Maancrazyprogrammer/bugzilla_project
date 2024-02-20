@@ -1,4 +1,5 @@
 
+<%= link_to 'back' , projects_path,class: 'btn btn-primary' %>
 
 <%= form_with(model: @project, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |form| %>
   <%= form.label :p_Name %>
