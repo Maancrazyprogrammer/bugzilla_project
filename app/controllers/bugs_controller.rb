@@ -42,6 +42,8 @@ class BugsController < ApplicationController
       @bug = Bug.find(params[:id])
 
       if @bug.update(bug_params)
+        @user=@bug.user
+        SendBugAssignmentEmailJob.perform_later(@user.id, @bug.id)
         redirect_to projects_path, notice: "Request sucessfull Completed!"
       else
         render :edit, status: :unprocessable_entity
