@@ -83,9 +83,12 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @user = User.find(params[:user_id])
 
-    @project.users.destroy(@user)
+    if @project.user.destroy!(@user)
 
-    redirect_to @project, notice: 'User removed from the project.'
+    redirect_to project_path(@project), notice: 'User removed from the project.'
+    else
+    redirect_to project_path
+    end
   end
   def set_project
     @project = Project.find(params[:id])

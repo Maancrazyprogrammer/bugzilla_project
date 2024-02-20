@@ -5,11 +5,11 @@ Rails.application.routes.draw do
   root 'projects#index'
 
   # config/routes.rb
-  # resources :projects do
-  #   member do
-  #     delete 'remove_user/:user_id', action: :remove_user, as: :remove_user
-  #   end
-  # end
+  resources :projects do
+    member do
+      delete 'remove_user/:user_id', action: :remove_user, as: :remove_user
+    end
+  end
 
 
 resources :projects do
