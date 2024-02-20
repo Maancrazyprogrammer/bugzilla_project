@@ -8,4 +8,11 @@ class Project < ApplicationRecord
 
   validates :p_Name, presence: :true, uniqueness: true
   validates :p_desc, presence: true
+  def self.ransackable_attributes(_auth_object = nil)
+
+
+
+    "%w(p_Name)"
+
+end
 end

@@ -1,5 +1,4 @@
 
-<%= link_to 'back' , projects_path,class: 'btn btn-primary' %>
 
 <%= form_with(model: @project, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |form| %>
   <%= form.label :p_Name %>
@@ -25,8 +24,9 @@
   <!-- Inserted elements will be injected before that target. -->
     <div data-nested-form-target="target"></div>
 
-    <button type="button" data-action="nested-form#add">Add todo</button>
+    <button type="button" data-action="nested-form#add">Add User</button>
   <%# end of nested form %>
     <%= form.submit %>
   <% end %>
 
+<%= link_to 'back' , projects_path,class: 'btn btn-primary' %>

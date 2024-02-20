@@ -13,7 +13,7 @@ class Bug < ApplicationRecord
 
 
 # app/models/product.rb
-
+# for ransack search
 def self.ransackable_attributes(_auth_object = nil)
 
 

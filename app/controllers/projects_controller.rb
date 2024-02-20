@@ -7,6 +7,8 @@ class ProjectsController < ApplicationController
     # authorize! :read, Project
     if current_user.manager? || current_user.QA?
       @projects=Project.all
+      @q = Project.ransack(params[:q])
+      @projects = @q.result
     else
       @projects_assigned_to_user = current_user.projects
       @bugs_assigned_to_user = Bug.joins(:project).where(project: { id: @projects_assigned_to_user })

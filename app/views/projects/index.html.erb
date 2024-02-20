@@ -1,12 +1,20 @@
 
 <% if current_user.manager? || current_user.QA? %>
+<%= search_form_for @q do |f| %>
+  
+  <%= f.label :p_Name_cont, "Project Title" %>
+  <%= f.text_field :p_Name_cont %>
+  
+
+    <%= f.submit "Search", class: 'btn btn-primary'%>
+<% end %>
 <h1>Project Detail</h1>
-<table border="1" >
+<table class="table" >
     <tr>
-        <th>Project Name</th>
-        <th>Description</th>
-        <th>Users</th>
-        <th>Action</th>
+        <th scope="col">#</th>
+        <th scope="col">Project Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Action</th>
   
     
 
@@ -14,6 +22,10 @@
       <tr>
       
          <% @projects.each do |project| %>
+      
+         <td>
+           <%= project.id %>
+         </td>
         <td>
 
           
@@ -36,8 +48,7 @@
          <%= link_to "Edit", edit_project_path(project) , class:"btn btn-primary"%>
 
 
-        </td>
-        <td>
+      
         <% end %>
 
       <% if can? :destroy, Project %>
@@ -65,6 +76,7 @@
     
      <% end %>
 </table>
+
  <% if can? :read, Bug %>
 
 <%= link_to "Bug Detail", bugs_path, class:"btn btn-primary" %>
