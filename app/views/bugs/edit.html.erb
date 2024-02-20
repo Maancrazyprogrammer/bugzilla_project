@@ -2,6 +2,18 @@
 
 <!-- app/views/bugs/edit.html.erb -->
 <%= form_with(model: @bug, url: bug_path(@bug, project_id: @project.id), method: :patch) do |form| %>
+
+  <% if @bug.errors.any? %>
+    <div>
+      <h2><%= pluralize(@bug.errors.count, "error") %> prohibited this bug from being saved: try another</h2>
+      <ul>
+        <% @bug.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= form.label :b_Title %>
   <%= form.text_field :b_Title %>
 <div>
@@ -33,17 +45,6 @@
 
   <%= form.submit %>
 
-
-  <% if @bug.errors.any? %>
-    <div>
-      <h2><%= pluralize(@bug.errors.count, "error") %> prohibited this bug from being saved: try another</h2>
-      <ul>
-        <% @bug.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 <% end %>
 
 

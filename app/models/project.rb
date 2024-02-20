@@ -6,5 +6,6 @@ class Project < ApplicationRecord
   has_many :bugs, dependent: :destroy
   # has_many :users, through: :bugs
 
-
+  validates :p_Name, presence: :true, uniqueness: true
+  validates :p_desc, presence: true
 end

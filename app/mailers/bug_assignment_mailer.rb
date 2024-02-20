@@ -1,8 +1,8 @@
-class ProjectAssignmentMailer < ApplicationMailer
+class BugAssignmentMailer < ApplicationMailer
   default from: 'muhammadnoumankhokhar52@gmail.com'
-  def project_assigned_email(user, project)
+  def bug_assigned_email(user, bug)
     @user = user
-    @project = project
+    @bug = bug
     mail(to: @user.email, subject: 'New Project Assignment')
   end
 

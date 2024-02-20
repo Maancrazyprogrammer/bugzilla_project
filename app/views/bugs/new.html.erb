@@ -1,6 +1,17 @@
 
 <h1>Assign New Bug</h1>
+
 <%= form_with(model: @bug, url: project_bugs_path(@project), method: :post) do |form| %>
+<% if @bug.errors.any? %>
+    <div>
+      <h2><%= pluralize(@bug.errors.count, "error") %> prohibited this bug from being saved: try another bug</h2>
+      <ul>
+        <% @bug.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <%= form.label :"Bug Title" %>
   <%= form.text_field :b_Title %>
 
@@ -21,14 +32,5 @@
  
  
   <%= form.submit 'Assign Bug',class: 'btn btn-primary'  %>
-  <% if @bug.errors.any? %>
-    <div>
-      <h2><%= pluralize(@bug.errors.count, "error") %> prohibited this bug from being saved: try another bug</h2>
-      <ul>
-        <% @bug.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+ 
 <% end %>

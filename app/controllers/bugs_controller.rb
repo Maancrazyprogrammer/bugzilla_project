@@ -24,7 +24,9 @@ class BugsController < ApplicationController
       @bug = @project.bugs.build(bug_params)
 
       if @bug.save
-        redirect_to @bug, notice: 'Bug was successfully created.'
+        @user=@bug.user
+        SendBugAssignmentEmailJob.perform_later(@user.id, @bug.id)
+        redirect_to bugs_path, notice: 'Bug was successfully created.'
       else
         render :new
       end
@@ -38,8 +40,6 @@ class BugsController < ApplicationController
 
     def update
       @bug = Bug.find(params[:id])
-
-
 
       if @bug.update(bug_params)
         redirect_to projects_path, notice: "Request sucessfull Completed!"
