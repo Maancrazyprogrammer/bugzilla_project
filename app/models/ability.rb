@@ -11,6 +11,8 @@ class Ability
       can :manage, Project, manager_id: user.id
       can :manage, Bug,manager_id: user.id
       can :manage, Join, manager_id: user.id
+      can :manage, User, manager_id: user.id
+
       # can :new, Project, manager_id: user.id
       # can :create, Project, manager_id: user.id
       # can :destroy, Project, manager_id: user.id
@@ -57,6 +59,7 @@ class Ability
       cannot :destroy, Project, QA_id: user.id
       cannot :update, Project, QA_id: user.id
       cannot :edit, Project, QA_id: user.id
+      cannot :destroy, User, QA_id: user.id
 
       cannot :new, Join, QA_id: user.id
       cannot :create, Join, QA_id: user.id

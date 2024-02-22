@@ -17,6 +17,9 @@ class BugsController < ApplicationController
     authorize! :new, Bug
 
     @bug = Bug.new
+
+    @b_type = params[:b_type]
+
     # @project_id = params[:project_id]
   end
 
@@ -57,6 +60,7 @@ class BugsController < ApplicationController
 
   def destroy
   end
+
 
   private
   def set_bug

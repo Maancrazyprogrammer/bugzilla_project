@@ -5,12 +5,8 @@ Rails.application.routes.draw do
   root 'projects#index'
 
   # config/routes.rb
-  resources :projects do
-    member do
-      delete 'remove_user/:user_id', action: :remove_user, as: :remove_user
-    end
-  end
 
+  resources :joins, only: [:destroy]
 
 resources :projects do
   resources :joins, only: [:new, :create]
@@ -23,6 +19,7 @@ end
   resources :bugs
   resources :joins
   devise_for :users
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

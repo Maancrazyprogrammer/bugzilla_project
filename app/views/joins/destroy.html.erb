@@ -1,2 +1,7 @@
-<h1>Joins#destroy</h1>
-<p>Find me in app/views/joins/destroy.html.erb</p>
+<!-- app/views/joins/destroy.html.erb -->
+
+<h1>Remove User from Project</h1>
+<p>Are you sure you want to remove <%= @user.name %> from <%= @project.p_Name %>?</p>
+
+<%= link_to 'Cancel', project_path(@project) %>
+<%= link_to 'Remove User', join_path(@user.joins.find_by(project_id: @project.id)), method: :delete %>

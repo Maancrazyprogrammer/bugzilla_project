@@ -34,6 +34,18 @@ class JoinsController < ApplicationController
   end
 
   def destroy
+    @join = Join.find(params[:id])
+    @project = @join.project
+    @user = @join.user
+
+    # Remove the user from the project
+    if @join.destroy
+
+      redirect_to project_path(@project), notice: 'User removed from the project.'
+
+  else
+    render :show
+  end
   end
 
   private

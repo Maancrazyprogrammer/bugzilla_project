@@ -1,11 +1,44 @@
-
+<%# 
 <%= form_with model: @project do |form| %>
+  <%# <%= form.label :p_Name %>
+  <%# <%= form.text_field :p_Name %> 
+
+  <%# <%= form.label :p_desc %> 
+  <%# <%= form.text_field :p_desc %> 
+
+  <%# <%= form.submit %>
+<%# <% end %> 
+<%# <%= link_to 'back' , projects_path,class: 'btn btn-primary' %> 
+
+
+
+<%= form_with(model: @project, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |form| %>
   <%= form.label :p_Name %>
   <%= form.text_field :p_Name %>
 
   <%= form.label :p_desc %>
   <%= form.text_field :p_desc %>
 
-  <%= form.submit %>
-<% end %>
+
+  <%# here implement nested form %>
+
+   <template data-nested-form-target="template">
+    <%= form.fields_for :joins, Join.new, child_index: 'NEW_RECORD' do |todo_fields| %>
+      <%= render "projects/edit_project_form", f: todo_fields %>
+    <% end %>
+    
+  </template>
+      <%= form.fields_for :joins do |todo_fields| %>
+      <%= render "projects/edit_project_form", f: todo_fields %>
+   
+      <% end %>
+  <!-- Inserted elements will be injected before that target. -->
+    <div data-nested-form-target="target"></div>
+
+    <button type="button" data-action="nested-form#add">Add User</button>
+  <%# end of nested form %>
+    <%= form.submit %>
+  <% end %>
+
 <%= link_to 'back' , projects_path,class: 'btn btn-primary' %>
+

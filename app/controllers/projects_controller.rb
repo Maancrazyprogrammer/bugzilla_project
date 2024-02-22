@@ -49,6 +49,9 @@ class ProjectsController < ApplicationController
   def edit
     authorize! :edit, Project
     @project = Project.find(params[:id])
+    @project.joins.build(user_id: params[:user_id])
+
+    @users = User.all
   end
 
   def update
@@ -57,6 +60,8 @@ class ProjectsController < ApplicationController
 
 
     if @project.update(project_params)
+      SendProjectAssignmentEmailJob.perform_later(@project.joins.first.user, @project)
+      SendProjectAssignmentEmailJob.perform_later(@project.joins.second.user, @project)
       redirect_to projects_path
     else
       render :edit, status: :unprocessable_entity
@@ -82,17 +87,6 @@ class ProjectsController < ApplicationController
     end
 
 
-  end
-  def remove_user
-    @project = Project.find(params[:id])
-    @user = User.find(params[:user_id])
-
-    if @project.user.destroy!(@user)
-
-    redirect_to project_path(@project), notice: 'User removed from the project.'
-    else
-    redirect_to project_path
-    end
   end
   def set_project
     @project = Project.find(params[:id])
