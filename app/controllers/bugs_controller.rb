@@ -18,9 +18,6 @@ class BugsController < ApplicationController
 
     @bug = Bug.new
 
-    @b_type = params[:b_type]
-
-    # @project_id = params[:project_id]
   end
 
 

@@ -17,6 +17,8 @@ module Bugzilla
     config.autoload_lib(ignore: %w(assets tasks))
 
     config.active_job.queue_adapter = :sidekiq
+    # config.action_dispatch.default_headers["Turbo-Frame"] = "action"
+    config.importmap.enabled = true
 
     # Configuration for the application, engines, and railties goes here.
     #

@@ -1,7 +1,7 @@
 
 <h1>Assign New Bug</h1>
 
-<%= form_with(model: @bug, url: project_bugs_path(@project), method: :post) do |form| %>
+<%= form_with(model: @bug, url: project_bugs_path(@project),method: :post) do |form| %>
 <% if @bug.errors.any? %>
     <div>
       <h2><%= pluralize(@bug.errors.count, "error") %> prohibited this bug from being saved: try another bug</h2>
@@ -12,27 +12,75 @@
       </ul>
     </div>
   <% end %>
+
+
   <%= form.label :"Bug Title" %>
   <%= form.text_field :b_Title %>
 
+  
 <div>
-  <%= form.label :b_type %>
-  <%= form.select :b_type, Bug.b_types.keys %>
+  <%= label :b_type , 'Bug:' %>
+  <%= form.radio_button :b_type, 'bugs', id: 'type_bug' %>
+  <br>
+  <%= label :b_type , 'Feature:' %>
+  <%= form.radio_button :b_type, 'feature', id: 'type_feature' %>
+  <br>
 </div>
 <div>
+  <% bug_status=['newly' ,'started' , 'completed', 'resolved' ]%>
   <%= form.label :status %>
-  <%= form.select :status, Bug.statuses.keys %>
-</div>
-
+  <%= form.select(:status, bug_status,{}, :required=>true, id: 'Bugz_status') %>
+ </div> 
+ <div>
   <%= form.label :"Deadline" %>
   <%= form.date_field :b_deadline %>
-
+</div>
    <%= form.hidden_field :project_id, value: @project_id %>  
+   <div>
+  <%= form.label :"select" %>
    <%= form.collection_select :user_id, User.where(role: ["developer","QA"]), :id, :name, {}, { multiple: false } %>
- 
- 
+ </div>
+ <br>
+  <div class="actions">
   <%= form.submit 'Assign Bug',class: 'btn btn-warning'  %>
+
+  </div>
  
 <% end %>
-
+<br>
 <%= link_to 'back' , projects_path,class: 'btn btn-warning' %>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const typeBug = document.querySelector('#type_bug');
+    const typeFeature = document.querySelector('#type_feature');
+    const statusSelect = document.querySelector('#Bugz_status');
+
+    const bugStatus = ['newly', 'started', 'resolved'];
+    const featureStatus = ['newly', 'started', 'completed'];
+
+    typeBug.addEventListener('change', function() {
+      if (typeBug.checked) {
+        updateStatusOptions(bugStatus);
+      }
+    });
+
+    typeFeature.addEventListener('change', function() {
+      if (typeFeature.checked) {
+        updateStatusOptions(featureStatus);
+      }
+    });
+
+    function updateStatusOptions(statusOptions) {
+      statusSelect.innerHTML = ''; 
+
+      statusOptions.forEach(function(option) {
+        const optionElement = document.createElement('option');
+        optionElement.value = option;
+        optionElement.textContent = option.charAt(0).toUpperCase() + option.slice(1); 
+        statusSelect.appendChild(optionElement);
+      });
+    }
+  });
+</script>

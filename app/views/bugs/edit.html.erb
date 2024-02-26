@@ -15,15 +15,20 @@
 
   <%= form.label :b_Title %>
   <%= form.text_field :b_Title %>
-<div>
-  <%= form.label :b_type %>
-  <%= form.select :b_type, Bug.b_types.keys %>
-</div>
-<div>
-  <%= form.label :status %>
-  <%= form.select :status, Bug.statuses.keys %>
-</div>
 
+<div>
+  <%= label :b_type , 'Bug:' %>
+  <%= form.radio_button :b_type, 'bug', id: 'type_bug' %>
+  <br>
+  <%= label :b_type , 'Feature:' %>
+  <%= form.radio_button :b_type, 'feature', id: 'type_feature' %>
+  <br>
+</div>
+<div>
+  <% bug_status=['newly' ,'started' , 'completed', 'resolved' ]%>
+  <%= form.label :status %>
+  <%= form.select(:status, bug_status,{}, :required=>true, id: 'Bugz_status') %>
+ </div>
   <%= form.label :b_deadline %>
   <%= form.date_field :b_deadline %>
 
@@ -46,5 +51,38 @@
 
 <% end %>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const typeBug = document.querySelector('#type_bug');
+    const typeFeature = document.querySelector('#type_feature');
+    const statusSelect = document.querySelector('#Bugz_status');
+
+    const bugStatus = ['newly', 'started', 'resolved'];
+    const featureStatus = ['newly', 'started', 'completed'];
+
+    typeBug.addEventListener('change', function() {
+      if (typeBug.checked) {
+        updateStatusOptions(bugStatus);
+      }
+    });
+
+    typeFeature.addEventListener('change', function() {
+      if (typeFeature.checked) {
+        updateStatusOptions(featureStatus);
+      }
+    });
+
+    function updateStatusOptions(statusOptions) {
+      statusSelect.innerHTML = ''; 
+
+      statusOptions.forEach(function(option) {
+        const optionElement = document.createElement('option');
+        optionElement.value = option;
+        optionElement.textContent = option.charAt(0).toUpperCase() + option.slice(1); 
+        statusSelect.appendChild(optionElement);
+      });
+    }
+  });
+</script>
 
 <%= link_to 'back' , projects_path,class: 'btn btn-warning' %>

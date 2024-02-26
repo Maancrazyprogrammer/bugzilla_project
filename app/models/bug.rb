@@ -9,7 +9,7 @@ class Bug < ApplicationRecord
   validates :b_deadline, presence: true
 
   enum b_type: {bug:0, feature:1}
-  enum status: {newly:0, started:1, completed:2,resolved:3}
+  enum status: {newly:0, started:1, resolved:2,completed:3}
 
 
 # app/models/product.rb

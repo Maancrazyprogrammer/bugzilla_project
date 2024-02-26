@@ -35,8 +35,10 @@ class ProjectsController < ApplicationController
 
     if @project.save
       # SendProjectAssignmentEmailJob.perform_later(user, project)
-      SendProjectAssignmentEmailJob.perform_later(@project.joins.first.user, @project)
-      SendProjectAssignmentEmailJob.perform_later(@project.joins.second.user, @project)
+      @project.users.each do |user|
+      SendProjectAssignmentEmailJob.perform_later(user, @project)
+      end
+      # SendProjectAssignmentEmailJob.perform_later(@project.joins.second.user, @project)
       redirect_to project_path(@project), notice: 'project created successfully!'
     else
       render :new
@@ -60,8 +62,9 @@ class ProjectsController < ApplicationController
 
 
     if @project.update(project_params)
-      SendProjectAssignmentEmailJob.perform_later(@project.joins.first.user, @project)
-      SendProjectAssignmentEmailJob.perform_later(@project.joins.second.user, @project)
+      @project.users.each do |user|
+      SendProjectAssignmentEmailJob.perform_later(user, @project)
+      end
       redirect_to projects_path
     else
       render :edit, status: :unprocessable_entity
