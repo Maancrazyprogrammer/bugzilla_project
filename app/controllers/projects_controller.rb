@@ -51,7 +51,8 @@ class ProjectsController < ApplicationController
   def edit
     authorize! :edit, Project
     @project = Project.find(params[:id])
-    @project.joins.build(user_id: params[:user_id])
+    @join=Join.where(project_id: @project.id)
+    # @project.joins.build(user_id: params[:user_id])
 
     @users = User.all
   end
@@ -65,7 +66,7 @@ class ProjectsController < ApplicationController
       @project.users.each do |user|
       SendProjectAssignmentEmailJob.perform_later(user, @project)
       end
-      redirect_to projects_path
+      redirect_to projects_path, notice: "Project updated successfully"
     else
       render :edit, status: :unprocessable_entity
     end

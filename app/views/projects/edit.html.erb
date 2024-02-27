@@ -21,17 +21,19 @@
 
 
   <%# here implement nested form %>
+   <%= form.fields_for :joins do |todo_fields| %>
+      <%= render "projects/edit_project_form", f: todo_fields %>
+    <% end %>
+    
 
-   <template data-nested-form-target="template">
+
+  <%# here implement nested form %>
+ <template data-nested-form-target="template">
     <%= form.fields_for :joins, Join.new, child_index: 'NEW_RECORD' do |todo_fields| %>
       <%= render "projects/edit_project_form", f: todo_fields %>
     <% end %>
     
   </template>
-      <%= form.fields_for :joins do |todo_fields| %>
-      <%= render "projects/edit_project_form", f: todo_fields %>
-   
-      <% end %>
   <!-- Inserted elements will be injected before that target. -->
     <div data-nested-form-target="target"></div>
 

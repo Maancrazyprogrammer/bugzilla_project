@@ -1,6 +1,17 @@
 
 
 <%= form_with(model: @project, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |form| %>
+<% if @project.errors.any? %>
+    <div>
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this user from being saved: try another user</h2>
+      <ul>
+        <% @project.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= form.label :p_Name %>
   <%= form.text_field :p_Name %>
 
@@ -17,10 +28,6 @@
     <% end %>
     
   </template>
-      <%= form.fields_for :joins do |todo_fields| %>
-      <%= render "projects/project_user_form", f: todo_fields %>
-   
-      <% end %>
   <!-- Inserted elements will be injected before that target. -->
     <div data-nested-form-target="target"></div>
 

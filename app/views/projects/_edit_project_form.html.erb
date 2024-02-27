@@ -1,7 +1,8 @@
 <div class="nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
    <%= f.hidden_field :project_id, value: @project.id %>
-   <%= f.label :user_id %>
-   <%= f.collection_select :user_id, User.where(role: ["developer","QA"]), :id, :name, {}, { multiple: false } %>
+  
+      <%= f.collection_select :user_id, User.where(role: ["developer","QA"]), :id, :name, {}, { multiple: false } %>
+
    <button type="button" data-action="nested-form#remove">Remove</button>
 
   <%= f.hidden_field :_destroy %>

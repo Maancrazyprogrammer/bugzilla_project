@@ -17,6 +17,7 @@
 <% end %>
 
 
+
 <table class="table">
   <thead>
     <tr>
@@ -25,6 +26,7 @@
       <th scope="col">Type</th>
       <th scope="col">Status</th>
       <th scope="col">deadline</th>
+      <th scope="col">Screenshot</th>
       <th scope="col">Projects</th>
       <th scope="col">Action</th>
 
@@ -39,7 +41,16 @@
     <td><%= bug.b_type %></td>
     <td><%= bug.status %></td>
     <td><%= bug.b_deadline %></td>
+    <td><% if bug.image.attached? %>
+      <%= image_tag bug.image, class:"image" %>
+    <% end %>
+</td>
+ 
+
+
+
     <td><%= bug.project.p_Name %></td>
+  
     <td>
 <% if can? :edit, Bug %>
  
@@ -49,6 +60,9 @@
 
  
 <% end %>
+</td>
+  <td>
+<%= link_to 'New Bug' , new_bug_path(project_id: bug.project.id, id: bug.id),class: 'btn btn-primary' %>
 </td>
     </tr>
   

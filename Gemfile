@@ -49,7 +49,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem 'cancancan'
   gem 'jquery-rails'
-  gem 'turbolinks'
+  # gem 'turbolinks'
 
 end
 

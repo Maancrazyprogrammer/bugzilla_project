@@ -1,4 +1,5 @@
 class Bug < ApplicationRecord
+  has_one_attached :image
   belongs_to :project
   belongs_to :user, optional: true
 
@@ -12,8 +13,6 @@ class Bug < ApplicationRecord
   enum status: {newly:0, started:1, resolved:2,completed:3}
 
 
-# app/models/product.rb
-# for ransack search
 def self.ransackable_attributes(_auth_object = nil)
 
 

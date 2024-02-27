@@ -16,11 +16,14 @@
 
   <%= form.label :"Bug Title" %>
   <%= form.text_field :b_Title %>
-
+<div>
+  <%= form.label :image %>
+  <%= form.file_field :image %>
+</div>
   
 <div>
   <%= label :b_type , 'Bug:' %>
-  <%= form.radio_button :b_type, 'bugs', id: 'type_bug' %>
+  <%= form.radio_button :b_type, 'bug', id: 'type_bug' %>
   <br>
   <%= label :b_type , 'Feature:' %>
   <%= form.radio_button :b_type, 'feature', id: 'type_feature' %>
@@ -35,12 +38,17 @@
   <%= form.label :"Deadline" %>
   <%= form.date_field :b_deadline %>
 </div>
-   <%= form.hidden_field :project_id, value: @project_id %>  
+   <%# <%= form.hidden_field :project_id, value: @project_id %>  
    <div>
   <%= form.label :"select" %>
    <%= form.collection_select :user_id, User.where(role: ["developer","QA"]), :id, :name, {}, { multiple: false } %>
  </div>
+
  <br>
+  <div>
+  <%= form.label :"select" %>
+   <%= form.collection_select :project_id, Project.all, :id, :p_Name, {}, { multiple: false } %>
+ </div>
   <div class="actions">
   <%= form.submit 'Assign Bug',class: 'btn btn-warning'  %>
 
@@ -52,7 +60,7 @@
 
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('turbo:load', function() {
     const typeBug = document.querySelector('#type_bug');
     const typeFeature = document.querySelector('#type_feature');
     const statusSelect = document.querySelector('#Bugz_status');

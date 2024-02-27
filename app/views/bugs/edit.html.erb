@@ -13,9 +13,10 @@
     </div>
   <% end %>
 
-  <%= form.label :b_Title %>
-  <%= form.text_field :b_Title %>
-
+<div>
+  <%= form.label :image %>
+  <%= form.file_field :image %>
+</div>
 <div>
   <%= label :b_type , 'Bug:' %>
   <%= form.radio_button :b_type, 'bug', id: 'type_bug' %>
@@ -52,7 +53,7 @@
 <% end %>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('turbo:load', function() {
     const typeBug = document.querySelector('#type_bug');
     const typeFeature = document.querySelector('#type_feature');
     const statusSelect = document.querySelector('#Bugz_status');

@@ -45,9 +45,7 @@
      <td><%= user.name %></td>
      <td><%= user.email %></td>
      <td><%= user.role %></td>
-      <% if can? :destroy, User %>
-  <td><%= link_to 'Delete', join_path(user.joins.find_by(project_id: @project.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn  btn-primary" %></td>
- <%end%>
+      
     
     </tr>
   
