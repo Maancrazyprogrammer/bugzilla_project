@@ -1,5 +1,6 @@
 class Bug < ApplicationRecord
   has_one_attached :image
+  has_rich_text :content #for rich text editor
   belongs_to :project
   belongs_to :user, optional: true
 
