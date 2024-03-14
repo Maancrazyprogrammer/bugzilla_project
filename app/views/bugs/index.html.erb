@@ -1,7 +1,7 @@
 <%= search_form_for @q do |f| %>
   
   <%= f.label :b_Title_cont, "Bug Title" %>
-  <%= f.text_field :b_Title_cont %>
+  <%= f.text_field :b_Title_cont %> 
   <%= f.label :status_cont, "Status" %>
 
   <%= f.select :status_eq, Bug.statuses.to_a.map { |w| [w[0].humanize, w[1]] },
@@ -12,9 +12,10 @@
                          {:include_blank => true} %>
 
 
-    <%= f.submit "Search", class: 'btn btn-warning'%>
+    <%= f.submit "Search", class: 'btn btn-warning'  %>
   
-<% end %>
+ <% end %>
+ 
 
 
 
@@ -26,30 +27,31 @@
       <th scope="col">Type</th>
       <th scope="col">Status</th>
       <th scope="col">deadline</th>
-      <th scope="col">Screenshot</th>
+      <%# <th scope="col">Screenshot</th> %>
       <th scope="col">Projects</th>
       <th scope="col">Action</th>
 
 
     </tr>
   </thead>
+  
   <tbody>
     <% @bugs.each do |bug| %>
     <tr>
-      <td><%= bug.id %></td>
+      <td><%= bug.id %></td> 
        <td><%= bug.b_Title %></td>
     <td><%= bug.b_type %></td>
     <td><%= bug.status %></td>
     <td><%= bug.b_deadline %></td>
-    <td><% if bug.image.attached? %>
-      <%= image_tag bug.image, class:"image" %>
-    <% end %>
-</td>
+    <%# <td><% if current_user.bug.image.attached? %>
+      <%# <%= image_tag bug.image, class:"image" %>
+    <%# <% end %> 
+<%# </td> %>
  
 
 
 
-    <td><%= bug.project.p_Name %></td>
+    <td><%= bug.project.p_Name %></td> 
   
     <td>
 <% if can? :edit, Bug %>
@@ -62,8 +64,16 @@
 <% end %>
 </td>
   <td>
-<%= link_to 'New Bug' , new_bug_path(project_id: bug.project.id, id: bug.id),class: 'btn btn-primary' %>
+
+<% if can? :new, Bug %>
+
+<%= link_to 'New Bug', new_bug_path, class: 'btn btn-primary' %>
+ 
+<% end %>
 </td>
+
+
+ 
     </tr>
   
    
@@ -74,3 +84,4 @@
 
 
 <%= link_to 'back' , projects_path,class: 'btn btn-warning' %>
+ 

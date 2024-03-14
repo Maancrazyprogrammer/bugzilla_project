@@ -8,11 +8,11 @@ class Ability
 
 
     if user.manager?
-      can :manage, Project, manager_id: user.id
-      can :manage, Bug,manager_id: user.id
-      can :manage, Join, manager_id: user.id
-      can :manage, User, manager_id: user.id
-
+      can :manage, Project
+      can :manage ,Bug
+      can :manage, Join
+      can :manage, User
+      can :edit, Bug
       # can :new, Project, manager_id: user.id
       # can :create, Project, manager_id: user.id
       # can :destroy, Project, manager_id: user.id
@@ -26,21 +26,24 @@ class Ability
 
 
 
-    elsif user.developer?
-      can :read, Project, developer_id: user.id
-      cannot :read, Bug,developer_id: user.id
-      cannot :read, Join, developer_id: user.id
-      cannot :new, Project, developer_id: user.id
-      cannot :create, Project, developer_id: user.id
-      cannot :destroy, Project, developer_id: user.id
-      cannot :update, Project, developer_id: user.id
-      cannot :edit, Project, developer_id: user.id
+      elsif user.developer?
+        can :read, Project, id: user.projects.pluck(:id)
+        can [:read,:edit,:update], Bug, user_id: user.id
 
-      cannot :new, Join, developer_id: user.id
-      cannot :create, Join, developer_id: user.id
-      cannot :new, Bug, developer_id: user.id
-      cannot :create, Bug, developer_id: user.id
-      can :edit, Bug, developer_id: user.id
+        cannot :read, Join, id: user.id
+        cannot :read, Join, id: user.id
+
+        cannot :new, Project, id: user.id
+        cannot :create, Project, id: user.id
+        cannot :destroy, Project, id: user.id
+        cannot :update, Project, id: user.id
+        cannot :edit, Project, id: user.id
+
+        cannot :new, Join, id: user.id
+        cannot :create, Join, id: user.id
+        cannot :new, Bug, id: user.id
+        cannot :create, Bug, id: user.id
+        # can :edit, Bug
 
 
 
@@ -50,20 +53,20 @@ class Ability
 
     elsif user.QA?
 
-      can :read, Project, QA_id: user.id
-      can :read, Bug, QA_id: user.id
+      can :read, Project
+      can :read, Bug
       # can :read, Join, manager_id: user.id
-      cannot :new, Project, QA_id: user.id
-      cannot :create, Project, QA_id: user.id
-      cannot :destroy, Project, QA_id: user.id
-      cannot :update, Project, QA_id: user.id
-      cannot :edit, Project, QA_id: user.id
-      cannot :destroy, User, QA_id: user.id
+      cannot :new, Project, id: user.id
+      cannot :create, Project, id: user.id
+      cannot :destroy, Project, id: user.id
+      cannot :update, Project, id: user.id
+      cannot :edit, Project, id: user.id
+      cannot :destroy, User, id: user.id
 
-      cannot :new, Join, QA_id: user.id
-      cannot :create, Join, QA_id: user.id
-      can:new, Bug, QA_id: user.id
-      can :create, Bug, QA_id: user.id
+      cannot :new, Join, id: user.id
+      cannot :create, Join, id: user.id
+      can:new, Bug, id: user.id
+      can :create, Bug, id: user.id
 
     end
 

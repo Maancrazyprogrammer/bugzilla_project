@@ -49,7 +49,11 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem 'cancancan'
   gem 'jquery-rails'
-  # gem 'turbolinks'
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
+  gem 'rails-controller-testing'
+  gem 'faker'
+  gem 'shoulda-matchers'
 
 end
 

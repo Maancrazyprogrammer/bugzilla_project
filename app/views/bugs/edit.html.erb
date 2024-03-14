@@ -13,23 +13,28 @@
     </div>
   <% end %>
 
-<div>
-  <%= form.label :image %>
-  <%= form.file_field :image %>
-</div>
-<div>
-  <%= label :b_type , 'Bug:' %>
-  <%= form.radio_button :b_type, 'bug', id: 'type_bug' %>
-  <br>
-  <%= label :b_type , 'Feature:' %>
-  <%= form.radio_button :b_type, 'feature', id: 'type_feature' %>
-  <br>
-</div>
-<div>
-  <% bug_status=['newly' ,'started' , 'completed', 'resolved' ]%>
-  <%= form.label :status %>
-  <%= form.select(:status, bug_status,{}, :required=>true, id: 'Bugz_status') %>
- </div>
+
+ 
+    <h3><%= @bug.b_type %></h3>
+  
+  <p>
+    <% if @bug.b_type == 'bug' %>
+      <% bug_status = ['newly', 'started', 'resolved'] %>
+    <% elsif @bug.b_type == 'feature' %>
+      <% bug_status = ['newly', 'started', 'completed'] %>
+    <% end %>
+    <%= form.label :status %>
+    <%= form.select(:status, bug_status, {}, required: true, id: 'Bugz_status') %>
+  </p>
+
+
+
+
+
+
+
+
+
   <%= form.label :b_deadline %>
   <%= form.date_field :b_deadline %>
 
@@ -51,7 +56,7 @@
   <%= form.submit %>
 
 <% end %>
-
+<%# 
 <script>
   document.addEventListener('turbo:load', function() {
     const typeBug = document.querySelector('#type_bug');
@@ -84,6 +89,6 @@
       });
     }
   });
-</script>
+</script> %>
 
 <%= link_to 'back' , projects_path,class: 'btn btn-warning' %>

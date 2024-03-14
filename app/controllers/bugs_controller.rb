@@ -1,21 +1,21 @@
 class BugsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: [:new, :create, :edit, :update,:destroy]
+  before_action :set_project, only: [ :edit, :update,:destroy]
   before_action :set_bug, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource # Add this lin
 
   def index
-    authorize! :index, Bug
+    # authorize! :read, Bug
 
-    @bugs = Bug.all
+    @bugs = Bug.accessible_by(current_ability)
     @q = Bug.ransack(params[:q])
-    @bugs = @q.result
+    @bugs = @q.result.accessible_by(current_ability)
     @project_id_for_form = SecureRandom.uuid # Generate a temporary project_id
 
   end
 
-
   def new
-    authorize! :new, Bug
+    # authorize! :new, Bug
 
     @bug = Bug.new
 
@@ -24,8 +24,8 @@ class BugsController < ApplicationController
 
 
     def create
-      authorize! :create, Bug
-      @bug = @project.bugs.build(bug_params)
+      # authorize! :create, Bug
+      @bug = Bug.new(bug_params)
 
       if @bug.save
         @user=@bug.user
@@ -38,7 +38,7 @@ class BugsController < ApplicationController
 
 
     def edit
-      authorize! :edit, Bug
+      # authorize! :edit, Bug
       @bug = Bug.find(params[:id])
     end
 
@@ -54,7 +54,7 @@ class BugsController < ApplicationController
       end
     end
     def show
-    authorize! :show, Bug
+    # authorize! :show, Bug
   end
 
   def destroy
@@ -62,6 +62,7 @@ class BugsController < ApplicationController
 
 
   private
+
   def set_bug
     @bug = Bug.find(params[:id])
   end

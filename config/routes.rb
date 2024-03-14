@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   root 'projects#index'
 
   # config/routes.rb
-
+  # resources :bugs do
+  #   collection do
+  #     get :search
+  #   end
+  # end
   resources :joins, only: [:destroy]
 
 resources :projects do

@@ -1,7 +1,7 @@
 
 <h1>Assign New Bug</h1>
 
-<%= form_with(model: @bug, url: project_bugs_path(@project),method: :post) do |form| %>
+<%= form_with(model: @bug,method: :post) do |form| %>
 <% if @bug.errors.any? %>
     <div>
       <h2><%= pluralize(@bug.errors.count, "error") %> prohibited this bug from being saved: try another bug</h2>
